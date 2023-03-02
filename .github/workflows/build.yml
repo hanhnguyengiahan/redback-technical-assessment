@@ -14,11 +14,20 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Lint code
-        run: npm run lint
-      - name: Unit tests
+      - name: Linting
+        run: |
+          docker run --rm \
+            -v $(pwd)/${{ env.APP_PATH }}:/app \
+            -w /app \
+             mrsangrin/linter-eslint \
+            . --ext .js,.jsx,.ts,.tsx
+        env:
+          APP_PATH: ./battery-ui/src
+
+
+      - name: Unit testing
         run: npm run test
-      - name: Build and push Docker image
+      - name: Building and pushing Docker image
         uses: docker/build-push-action@v2
         with:
           context: .
