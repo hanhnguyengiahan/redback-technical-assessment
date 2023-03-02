@@ -24,7 +24,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: hanhnguyengiahan/my-app:${{ github.sha }}
+          tags: hanhnguyengiahan/battery-ui-image:${{ github.sha }}
         env:
           DOCKER_BUILDKIT: 1
           APP_PATH: ./battery-ui/src
